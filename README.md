@@ -7,9 +7,9 @@ Demo
 
 ![alt text](https://github.com/jenizar/abap-rap-html-form/blob/main/screenshot/pic1.png)
 
-![alt text](https://github.com/jenizar/abap-rap-html-form/blob/main/screenshot/pic1.png)
+![alt text](https://github.com/jenizar/abap-rap-html-form/blob/main/screenshot/pic2.png)
 
-![alt text](https://github.com/jenizar/abap-rap-html-form/blob/main/screenshot/pic1.png)
+![alt text](https://github.com/jenizar/abap-rap-html-form/blob/main/screenshot/pic3.png)
 
 References:
 
