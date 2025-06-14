@@ -1,0 +1,128 @@
+CLASS ycl_httpsrv_001 DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+      INTERFACES if_http_service_extension.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+
+  METHODS get_form RETURNING VALUE(result) TYPE string.
+ENDCLASS.
+
+
+
+CLASS ycl_httpsrv_001 IMPLEMENTATION.
+
+  METHOD if_http_service_extension~handle_request.
+*    response->set_text( `<h1>Hello World ...</h1><p>This is my little HTTP Service :)</p>` ).
+*    response->set_status( i_code = 404 ).
+   DATA : gs_data TYPE ytb_ship_001,
+          gt_data TYPE TABLE OF ytb_ship_001.
+
+    CASE request->get_method( ).
+      WHEN 'GET'.
+        response->set_text( get_form( ) ).
+      WHEN 'POST'.
+        DATA(fields) = request->get_form_fields( ).
+        response->set_text( |Field 1: { fields[ 1 ]-value }, Field 2: { fields[ 2 ]-value }, |
+                             &
+                            |Field 3: { fields[ 3 ]-value }, Field 4: { fields[ 4 ]-value }, |
+                             &
+                            |Field 5: { fields[ 5 ]-value }, Field 6: { fields[ 6 ]-value }, |
+                             &
+                            |Field 7: { fields[ 7 ]-value }, Field 8: { fields[ 8 ]-value }|  ).
+
+          gs_data-shipping_number = cl_system_uuid=>create_uuid_x16_static( ).
+          gs_data-ship_to = fields[ 1 ]-value.
+          gs_data-shipment_term = fields[ 2 ]-value.
+          gs_data-document_type = fields[ 3 ]-value.
+          gs_data-address_location = fields[ 4 ]-value.
+          gs_data-city_location = fields[ 5 ]-value.
+          gs_data-country_location = fields[ 6 ]-value.
+          gs_data-phone_number = fields[ 7 ]-value.
+          gs_data-email_address = fields[ 8 ]-value.
+          gs_data-local_created_by = sy-uname.
+          "gs_data-local_created_at = cl_abap_context_info=>get_system_date( ).
+          gs_data-local_last_changed_by = sy-uname.
+          "gs_data-local_last_changed_at = sy-datum.
+          "gs_data-last_changed_at = sy-datum.
+          APPEND gs_data TO gt_data.
+          INSERT ytb_ship_001 FROM TABLE @gt_data.
+
+    ENDCASE.
+  ENDMETHOD.
+
+  METHOD get_form.
+    result = |<!DOCTYPE HTML>| &
+             |<html>| &
+             |<head>| &
+             | <meta http-equiv="X-UA-Compatible" content="IE=edge">| &
+             | <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />| &
+             | <style>| &
+             | <body style="padding:20px">| &
+             | </style>| &
+             |</head>| &
+             |<body>| &
+             | <img style="float: left; width:210px; height:200px" src="https://github.com/jenizar/sap-fiori-books-rating/blob/main/images/pic2.png?raw=true"> | &
+             | <h1 style="color:Navy;">Tangzhen Shipping Co, Ltd</h1>| &
+             | <h3 style="color:DarkGreen;"><b>Nanxingcun Tower, Jinhai Road 10, Shanghai, China</b></h3>| &
+             | <form method="POST">| &
+             | <br><br>| &
+             | <label for="ship_to" style="color:DeepPink;">Ship to</label>| &
+             | <br>| &
+             | <input id="ship_to" name="ship_to" type="text">| &
+             | <br><br><br>| &
+             | <label for="id_dropdown" style="color:Maroon;">Shipment Term</label>| &
+             | <br>| &
+             | <select id="id_dropdown" name="id_dropdown" >| &
+             |   <option value="Bill of Lading" selected>Bill of Lading</option>| &
+             |   <option value="COD – Change of Destination">COD – Change of Destination</option>| &
+             |   <option value="CYCY – Container Yard to Container Yard">CYCY – Container Yard to Container Yard</option>| &
+             |   <option value="DM – Demurrage">DM – Demurrage</option>| &
+             |   <option value="DT – Detention">DT – Detention</option>| &
+             |   <option value="FCL (Full Container Load) & LCL (Less than Container Load)">FCL (Full Container Load) & LCL (Less than Container Load)</option>| &
+             |   <option value="INCOTERMS – International Commercial Terms">INCOTERMS – International Commercial Terms</option>| &
+             |   <option value="Port Storage">Port Storage</option>| &
+             |   <option value="Rollover – Container Wasn’t Loaded on the Ship">Rollover – Container Wasn’t Loaded on the Ship</option>| &
+             |   <option value="Stuffing & Stripping">Stuffing & Stripping</option>| &
+             | </select>| &
+             | <br><br>| &
+             | | &
+             | <label for="doctype" style="color:RebeccaPurple;">Document Type</label>| &
+             | <br>| &
+             | <div>| &
+             | <input id="sales" name="sales" type="radio" value="Sales Order">| &
+             | <label for="sales">Sales Order</label>| &
+             | <input id="transfer" name="sales" type="radio" value="Transfer Order">| &
+             | <label for="transfer">Transfer Order</label>| &
+             | </div>| &
+             | <br>| &
+             | <label for="address" style="color:Red;">Address</label>| &
+             | <br>| &
+             | <input id="address" name="address" type="text">| &
+             | <br><br>| &
+             | <label for="city" style="color:Indigo;">City</label>| &
+             | <br>| &
+             | <input id="city" name="city" type="text">| &
+             | <br><br>| &
+             | <label for="country" style="color:Chocolate;">Country</label>| &
+             | <br>| &
+             | <input id="country" name="country" type="text">| &
+             | <br><br>| &
+             | <label for="phone" style="color:IndianRed;">Phone</label>| &
+             | <br>| &
+             | <input id="phone" name="phone" type="text">| &
+             | <br><br>| &
+             | <label for="email" style="color:Crimson;">Email</label>| &
+             | <br>| &
+             | <input id="email" name="email" type="text">| &
+             | <br><br>| &
+             | <input type="submit" name="id_submit">| &
+             | </form>| &
+             |</body>| &
+             |</html>|.
+  ENDMETHOD.
+
+ENDCLASS.
