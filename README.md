@@ -13,7 +13,7 @@ Demo
 
 References:
 
-1. 
+1. https://sapcloudapps.wordpress.com/2025/06/14/abap-rap-insert-data-to-custom-table-using-html-form/
 
 2. https://software-heroes.com/en/blog/btp-http-service-endpoint
 
