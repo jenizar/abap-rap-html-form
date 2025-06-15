@@ -65,7 +65,7 @@ CLASS ycl_httpsrv_001 IMPLEMENTATION.
              | </style>| &
              |</head>| &
              |<body>| &
-             | <img style="float: left; width:210px; height:200px" src="https://github.com/jenizar/sap-fiori-books-rating/blob/main/images/pic2.png?raw=true"> | &
+             | <img style="float: left; width:210px; height:200px" src="https://github.com/jenizar/abap-rap-html-form/blob/main/screenshot/pic4.png?raw=true"> | &
              | <h1 style="color:Navy;">Tangzhen Shipping Co, Ltd</h1>| &
              | <h3 style="color:DarkGreen;"><b>Nanxingcun Tower, Jinhai Road 10, Shanghai, China</b></h3>| &
              | <form method="POST">| &
